@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revenue Hub — Traditional Frame Lead Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #000000;
+      line-height: 1.5;
+      padding: 24px 16px 60px;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #000000;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 60px;
+      padding: 0.7rem 1.8rem 0.7rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .back-btn i {
+      font-size: 1rem;
+      color: #ffffff;
+      transition: transform 0.15s ease;
+    }
+    .back-btn:hover {
+      background: #00b050;
+      box-shadow: 0 10px 22px rgba(0, 176, 80, 0.3);
+      transform: translateY(-1px);
+    }
+    .back-btn:hover i { transform: translateX(-3px); }
+    .back-btn:active { transform: scale(0.98); }
+
+    .form-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding-top: 3.5rem;
+    }
+
+    .form-header { margin-bottom: 40px; }
+    .form-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .form-header p { font-size: 14px; color: #555; }
+
+    .section {
+      margin-bottom: 36px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00b050;
+    }
+
+    .field { margin-bottom: 18px; }
+
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #000;
+    }
+    .field label .req { color: #ff4d6d; margin-left: 2px; }
+    .field label .opt { color: #999; font-weight: 400; font-size: 12px; margin-left: 4px; }
+
+    .hint {
+      display: block;
+      font-size: 12px;
+      color: #888;
+      margin-top: -4px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    /* ============================================================ */
+    /* ===== GALLERY FIELD ===== */
+    /* ============================================================ */
+    .gallery-field {
+      margin-bottom: 58px;
+      padding: 16px;
+      background: #ffffff;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      position: relative;
+    }
+
+    .gallery-field::before {
+      content: 'REFERENCE';
+      position: absolute;
+      top: -9px;
+      left: 14px;
+      background: #ffffff;
+      color: #888;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      padding: 0 8px;
+      border-radius: 4px;
+    }
+
+    .gallery-field > label {
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .gallery-field > .hint {
+      font-style: italic;
+      color: #999;
+      margin-bottom: 12px;
+    }
+
+    .gallery-preview-wrap {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fafafa;
+      border: 1.5px solid #eeeeee;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-preview-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s ease;
+    }
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .gallery-thumb {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #eeeeee;
+      background: #f0f0f0;
+      aspect-ratio: 1 / 1;
+      cursor: pointer;
+      padding: 0;
+      transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-thumb:hover {
+      border-color: #00b050;
+      transform: translateY(-1px);
+    }
+    .gallery-thumb.active {
+      border-color: #00b050;
+      box-shadow: 0 0 0 3px rgba(0, 176, 80, 0.12);
+    }
+
+    /* ============================================================ */
+    /* ===== SIZE BUNDLE BOX ===== */
+    /* ============================================================ */
+    .size-bundle-box {
+      background: #fafafa;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .size-preview-wrap {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f0f0f0;
+      border: 1.5px solid #e5e5e5;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s ease;
+      flex-shrink: 0;
+    }
+    .size-preview-wrap.has-image {
+      border-color: #00b050;
+    }
+    .size-preview-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s ease;
+    }
+    .size-preview-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #999;
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+      padding: 10px;
+      pointer-events: none;
+    }
+    .size-preview-placeholder svg {
+      width: 30px;
+      height: 30px;
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+    .size-preview-wrap.has-image .size-preview-placeholder {
+      display: none;
+    }
+    .size-preview-label {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+      display: none;
+      pointer-events: none;
+    }
+    .size-preview-wrap.has-image .size-preview-label {
+      display: block;
+    }
+
+    .size-categories-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 520px) {
+      .size-categories-row {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+      }
+    }
+
+    .size-category {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+    .size-category.inactive {
+      opacity: 1;
+    }
+    .size-category-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #00b050;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1;
+    }
+    .size-category-title::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #00b050;
+      flex-shrink: 0;
+    }
+    .size-category.inactive .size-category-title {
+      color: #00b050;
+    }
+    .size-category.inactive .size-category-title::before {
+      background: #00b050;
+    }
+
+    .custom-select { position: relative; user-select: none; }
+
+    .custom-select-trigger {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #000;
+      background: #ffffff;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      min-height: 42px;
+    }
+    .custom-select-trigger:hover { border-color: #d0d0d0; background: #ffffff; }
+    .custom-select.open .custom-select-trigger {
+      border-color: #00b050; background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(0, 176, 80, 0.1);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .custom-select-trigger .placeholder { color: #999; }
+    .custom-select-trigger .value { color: #000; }
+    .custom-select-trigger .chevron {
+      width: 12px; height: 12px; flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+    .custom-select.open .chevron { transform: rotate(180deg); }
+
+    .custom-select.locked .custom-select-trigger {
+      background: #f0f0f0;
+      color: #aaa;
+      cursor: not-allowed;
+      border-color: #e5e5e5;
+      opacity: 0.6;
+    }
+    .custom-select.locked .custom-select-trigger .placeholder,
+    .custom-select.locked .custom-select-trigger .value { color: #aaa; }
+    .custom-select.locked .custom-select-trigger:hover {
+      border-color: #e5e5e5;
+      background: #f0f0f0;
+    }
+    .custom-select.locked .custom-select-trigger .chevron { opacity: 0.4; }
+
+    .custom-options {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: #ffffff;
+      border: 1.5px solid #00b050;
+      border-top: none;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.2s ease;
+      z-index: 100;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+      margin-top: -1.5px;
+    }
+    .custom-select.open .custom-options {
+      max-height: 260px; overflow-y: auto; opacity: 1;
+    }
+
+    .custom-option {
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #000;
+      cursor: pointer;
+      transition: background 0.15s ease, padding-left 0.15s ease;
+      border-bottom: 1px solid #f5f5f5;
+      line-height: 1.3;
+    }
+    .custom-option:last-child { border-bottom: none; }
+    .custom-option:hover { background: #f0fdf6; padding-left: 16px; color: #00b050; }
+    .custom-option.selected { background: #e8faf0; color: #00b050; font-weight: 600; }
+    .custom-options::-webkit-scrollbar { width: 6px; }
+    .custom-options::-webkit-scrollbar-track { background: transparent; }
+    .custom-options::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 10px; }
+    .custom-options::-webkit-scrollbar-thumb:hover { background: #b0b0b0; }
+
+    .size-confirm-btn {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      color: #ffffff;
+      background: #00b050;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+      box-shadow: 0 4px 12px rgba(0, 176, 80, 0.25);
+      display: none;
+    }
+    .size-confirm-btn.visible { display: block; }
+    .size-confirm-btn:hover {
+      background: #00c258;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 176, 80, 0.35);
+    }
+    .size-confirm-btn:active { transform: translateY(0); }
+    .size-confirm-btn.confirmed {
+      background: #e8faf0;
+      color: #00b050;
+      box-shadow: none;
+      cursor: default;
+      border: 1.5px solid #00b050;
+    }
+    .size-confirm-btn.confirmed:hover {
+      background: #e8faf0;
+      transform: none;
+      box-shadow: none;
+    }
+    .size-confirm-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .size-change-link {
+      display: none;
+      width: 100%;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      color: #00b050;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      text-align: center;
+    }
+    .size-change-link.visible { display: block; }
+    .size-change-link:hover { color: #00c258; }
+
+    .other-input { margin-top: 10px; display: none; }
+    .other-input.show { display: block; animation: slideDown 0.25s ease; }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .other-input input {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #000;
+      background: #fff;
+      border: 1.5px solid #ff4d6d;
+      border-radius: 14px;
+      outline: none;
+      transition: box-shadow 0.2s;
+    }
+    .other-input input:focus { box-shadow: 0 0 0 4px rgba(255, 77, 109, 0.1); }
+
+    input[type="text"], input[type="email"], input[type="tel"], textarea {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #000;
+      background: #fafafa;
+      border: 1.5px solid #e5e5e5;
+      border-radius: 14px;
+      outline: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.5;
+    }
+    input[type="text"]:hover, input[type="email"]:hover, input[type="tel"]:hover, textarea:hover {
+      border-color: #d0d0d0; background: #ffffff;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, textarea:focus {
+      border-color: #00b050; background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(0, 176, 80, 0.1);
+    }
+
+    /* ============================================================ */
+    /* ===== LOCKED CONTACT SECTION ===== */
+    /* ============================================================ */
+    .contact-section.locked {
+      position: relative;
+      opacity: 0.55;
+      pointer-events: none;
+      user-select: none;
+    }
+    .contact-section.locked input,
+    .contact-section.locked textarea {
+      background: #f0f0f0;
+      cursor: not-allowed;
+    }
+    .contact-lock-note {
+      display: none;
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      background: #fff8e6;
+      border: 1.5px dashed #f0b400;
+      border-radius: 12px;
+      font-size: 13px;
+      color: #7a5b00;
+      line-height: 1.5;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-section.locked .contact-lock-note {
+      display: flex;
+    }
+    .contact-lock-note i {
+      flex-shrink: 0;
+      font-size: 16px;
+      color: #f0b400;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      color: #000;
+      background: #00b050;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+      margin-top: 8px;
+      box-shadow: 0 4px 14px rgba(0, 176, 80, 0.2);
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 176, 80, 0.3);
+      background: #00c258;
+    }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    .privacy {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+      margin-top: 16px;
+    }
+
+    .whatsapp-image-message {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      padding: 16px 18px;
+      background: #f0fdf6;
+      border: 1.5px dashed #00b050;
+      border-radius: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .whatsapp-image-message .wa-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #00b050;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .whatsapp-image-message .wa-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .whatsapp-image-message .wa-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 4px;
+    }
+    .whatsapp-image-message .wa-text p {
+      font-size: 13px;
+      color: #555555;
+      line-height: 1.5;
+    }
+
+    /* ============================================================ */
+    /* ===== MOBILE & TABLET GALLERY REDUCTION (up to 768px) ===== */
+    /* ============================================================ */
+    @media (max-width: 768px) {
+      .gallery-preview-wrap {
+        width: calc(100% - 60px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .gallery-thumbs {
+        width: calc(100% - 60px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .back-btn {
+        top: 1rem; left: 1rem;
+        font-size: 0.85rem;
+        padding: 0.55rem 1.3rem 0.55rem 1.1rem;
+      }
+      .form-wrap { padding-top: 3.2rem; }
+      .size-categories-row {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+      }
+    }
+
+
+/* ===== DESKTOP-ONLY FONT SIZE BOOST ===== */
+@media (min-width: 769px) {
+  body {
+    font-size: 20px;
+  }
+  .form-header h1 {
+    font-size: 33px;
+  }
+  .form-header p {
+    font-size: 19px;
+  }
+  .section-title {
+    font-size: 16px;
+  }
+  .field label {
+    font-size: 19px;
+  }
+  .hint {
+    font-size: 14px;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    font-size: 20px;
+    padding: 15px 18px;
+  }
+  .custom-select-trigger {
+    font-size: 14px;
+    padding: 12px 14px;
+    min-height: 46px;
+  }
+  .custom-option {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+  .size-category-title {
+    font-size: 12px;
+  }
+
+  .size-preview-wrap {
+    width: calc(100% - 90px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gallery-preview-wrap {
+    width: calc(100% - 90px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gallery-thumbs {
+    width: calc(100% - 90px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .size-preview-placeholder {
+    font-size: 14px;
+  }
+  .size-preview-label {
+    font-size: 13px;
+  }
+  .gallery-field > label {
+    font-size: 15px;
+  }
+  .gallery-field > .hint {
+    font-size: 13px;
+  }
+  .gallery-field::before {
+    font-size: 10px;
+  }
+  .size-confirm-btn {
+    font-size: 16px;
+    padding: 14px 18px;
+  }
+  .size-change-link {
+    font-size: 14px;
+  }
+  .submit-btn {
+    font-size: 18px;
+    padding: 20px;
+  }
+  .privacy {
+    font-size: 13px;
+  }
+  .whatsapp-image-message .wa-text strong {
+    font-size: 15px;
+  }
+  .whatsapp-image-message .wa-text p {
+    font-size: 14px;
+  }
+  .contact-lock-note {
+    font-size: 14px;
+  }
+}
+
+
+
+  /* ===== MOBILE-ONLY FONT SIZE BOOST ===== */
+  body {
+    font-size: 17px;
+  }
+  .form-header h1 {
+    font-size: 30px;
+  }
+  .form-header p {
+    font-size: 15px;
+  }
+  .section-title {
+    font-size: 14px;
+  }
+  .field label {
+    font-size: 16px;
+  }
+  .hint {
+    font-size: 13px;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    font-size: 16px;
+    padding: 15px 18px;
+  }
+  .custom-select-trigger {
+    font-size: 15px;
+    padding: 12px 14px;
+    min-height: 46px;
+  }
+  .custom-option {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+  .size-category-title {
+    font-size: 12px;
+  }
+  .size-preview-placeholder {
+    font-size: 14px;
+  }
+  .size-preview-label {
+    font-size: 12px;
+  }
+  .gallery-field > label {
+    font-size: 15px;
+  }
+  .gallery-field > .hint {
+    font-size: 13px;
+  }
+  .gallery-field::before {
+    font-size: 10px;
+  }
+  .size-confirm-btn {
+    font-size: 15px;
+    padding: 14px 18px;
+  }
+  .size-change-link {
+    font-size: 13px;
+  }
+  .submit-btn {
+    font-size: 17px;
+    padding: 19px;
+  }
+  .privacy {
+    font-size: 13px;
+  }
+  .whatsapp-image-message .wa-text strong {
+    font-size: 15px;
+  }
+  .whatsapp-image-message .wa-text p {
+    font-size: 14px;
+  }
+  .contact-lock-note {
+    font-size: 14px;
+  }
+
+  </style>
+</head>
+<body>
+
+  <a href="https://www.theartisticunity.art/#revenue-hub" class="back-btn" id="backButton">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+
+<div class="form-wrap">
+
+  <div class="form-header">
+    <h1>Traditional Frame</h1>
+    <p>Tell us about your frame needs. We'll get back to you with the perfect solution.</p>
+  </div>
+
+  <form id="revenueForm"
+        action="https://formspree.io/f/xjygjzbd"
+        method="POST">
+
+    <input type="hidden" name="_subject" value="New Traditional Frame Lead — The Artistic Unity">
+    <input type="hidden" name="_template" value="table">
+
+    <div class="section">
+      <div class="section-title">Product Details</div>
+
+      <!-- 1) Product Name -->
+      <div class="field">
+        <label>Product name</label>
+        <input type="text" name="product_name" value="Traditional Frame" readonly
+               style="background:#f0f0f0; color:#555; cursor:not-allowed;" />
+      </div>
+
+      <!-- 2) PRODUCT GALLERY -->
+      <div class="field gallery-field">
+        <label>Product preview <span class="opt">(optional)</span></label>
+        <span class="hint">Tap a thumbnail to preview it. This is just for reference.</span>
+
+        <div class="gallery-preview-wrap" id="galleryPreviewWrap">
+          <img id="galleryPreviewImg"
+               src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&h=800&fit=crop"
+               alt="Product preview" />
+        </div>
+
+        <div class="gallery-thumbs" id="galleryThumbs">
+          <button type="button" class="gallery-thumb active"
+                  data-full="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&h=800&fit=crop">
+            <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?w=200&h=200&fit=crop" alt="Preview 1" />
+          </button>
+          <button type="button" class="gallery-thumb"
+                  data-full="https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&h=800&fit=crop">
+            <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=200&h=200&fit=crop" alt="Preview 2" />
+          </button>
+          <button type="button" class="gallery-thumb"
+                  data-full="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&h=800&fit=crop">
+            <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=200&h=200&fit=crop" alt="Preview 3" />
+          </button>
+          <button type="button" class="gallery-thumb"
+                  data-full="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&h=800&fit=crop">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=200&h=200&fit=crop" alt="Preview 4" />
+          </button>
+        </div>
+      </div>
+
+      <!-- 3) SELECT SIZE -->
+      <div class="field">
+        <label>1. Select size <span class="req">*</span></label>
+        <span class="hint">Pick <strong>one</strong> category and choose a size from it, then click Confirm.</span>
+
+        <div class="size-bundle-box">
+          <div class="size-preview-wrap" id="sizePreviewWrap">
+            <img id="sizePreviewImg" src="" alt="" />
+            <div class="size-preview-placeholder" id="sizePreviewPlaceholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <span>Select a size to preview</span>
+            </div>
+            <span class="size-preview-label" id="sizePreviewLabel"></span>
+          </div>
+
+          <div class="size-categories-row">
+            <!-- SMALL -->
+            <div class="size-category" data-group="small">
+              <div class="size-category-title">Small</div>
+              <div class="custom-select" data-name="frame_size_small" data-group="small">
+                <div class="custom-select-trigger">
+                  <span class="placeholder">Select</span>
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="custom-options">
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=1"
+                       data-size-label="Small Portrait · 8&quot; × 10&quot; (4:5)">
+                    Small Portrait — 4:5
+                  </div>
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=2"
+                       data-size-label="Small Landscape · 10&quot; × 8&quot; (5:4)">
+                    Small Landscape — 5:4
+                  </div>
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=3"
+                       data-size-label="Small Square · 6&quot; × 6&quot; (1:1)">
+                    Small Square — 1:1
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MEDIUM -->
+            <div class="size-category" data-group="medium">
+              <div class="size-category-title">Medium</div>
+              <div class="custom-select" data-name="frame_size_medium" data-group="medium">
+                <div class="custom-select-trigger">
+                  <span class="placeholder">Select</span>
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="custom-options">
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=4"
+                       data-size-label="Medium Portrait · 12&quot; × 16&quot; (3:4)">
+                    Medium Portrait — 3:4
+                  </div>
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=5"
+                       data-size-label="Medium Landscape · 16&quot; × 12&quot; (4:3)">
+                    Medium Landscape — 4:3
+                  </div>
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=6"
+                       data-size-label="Medium Square · 10&quot; × 10&quot; (1:1)">
+                    Medium Square — 1:1
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LARGE -->
+            <div class="size-category" data-group="large">
+              <div class="size-category-title">Large</div>
+              <div class="custom-select" data-name="frame_size_large" data-group="large">
+                <div class="custom-select-trigger">
+                  <span class="placeholder">Select</span>
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="custom-options">
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=7"
+                       data-size-label="Large Portrait · 16&quot; × 24&quot; (2:3)">
+                    Large Portrait — 2:3
+                  </div>
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=8"
+                       data-size-label="Large Landscape · 24&quot; × 16&quot; (3:2)">
+                    Large Landscape — 3:2
+                  </div>
+                  <div class="custom-option"
+                       data-size-image="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&h=500&fit=crop&sig=9"
+                       data-size-label="Large Square · 14&quot; × 14&quot; (1:1)">
+                    Large Square — 1:1
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="size-confirm-btn" id="sizeConfirmBtn">Confirm size selection</button>
+          <button type="button" class="size-change-link" id="sizeChangeLink">Change size selection</button>
+        </div>
+      </div>
+
+      <!-- 4) ORIENTATION -->
+      <div class="field">
+        <label>2. Orientation <span class="req">*</span></label>
+        <span class="hint">Choose the orientation that best fits your artwork or photo.</span>
+        <div class="custom-select" data-name="orientation">
+          <div class="custom-select-trigger">
+            <span class="placeholder">Select orientation</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="custom-options">
+            <div class="custom-option" data-orientation="portrait">Portrait (tall)</div>
+            <div class="custom-option" data-orientation="landscape">Landscape (wide)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5) QUANTITY -->
+      <div class="field">
+        <label>3. Quantity <span class="req">*</span></label>
+        <div class="custom-select" data-name="quantity">
+          <div class="custom-select-trigger">
+            <span class="placeholder">Select quantity</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="custom-options">
+            <div class="custom-option">1 frame</div>
+            <div class="custom-option">2 – 5 frames</div>
+            <div class="custom-option">6 – 10 frames</div>
+            <div class="custom-option">11+ frames (bulk)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT SECTION -->
+    <div class="section contact-section locked" id="contactSection">
+      <div class="section-title">Your Contact Details</div>
+
+      <div class="contact-lock-note">
+        <i class="fas fa-lock"></i>
+        <span>Please complete size, orientation, and quantity selections above to unlock your contact details.</span>
+      </div>
+
+      <div class="field">
+        <label>Full name <span class="req">*</span></label>
+        <input type="text" name="name" id="contactName" required placeholder="Your full name" disabled>
+      </div>
+
+      <div class="field">
+        <label>Address <span class="req">*</span></label>
+        <input type="text" name="address" id="contactAddress" required placeholder="Street, city, postal code" disabled>
+      </div>
+
+      <div class="field">
+        <label>Contact number <span class="req">*</span></label>
+        <input type="tel" name="contact_number" id="contactPhone" required placeholder="+94 70 000 0000" disabled>
+      </div>
+
+      <div class="field">
+        <label>Email address <span class="opt">(optional)</span></label>
+        <input type="email" name="email" id="contactEmail" placeholder="you@example.com" disabled>
+      </div>
+    </div>
+
+    <!-- FURTHER INFORMATION -->
+    <div class="section">
+      <div class="section-title">Further Information</div>
+
+      <div class="field">
+        <label>Anything else you'd like to add? <span class="opt">(optional)</span></label>
+        <span class="hint">Share any extra details, special requests, or notes about your order.</span>
+        <textarea name="further_information" id="furtherInfo" placeholder="Type your message here..." rows="4"></textarea>
+      </div>
+    </div>
+
+    <div class="whatsapp-image-message">
+      <div class="wa-icon">
+        <i class="fab fa-whatsapp"></i>
+      </div>
+      <div class="wa-text">
+        <strong>Please send your images to the WhatsApp account that you are sending this form to.</strong>
+        <p>After submitting this form, please share your reference images directly on WhatsApp so we can process your quote faster.</p>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Get My Frame Quote →</button>
+    <p class="privacy">We respect your privacy. We'll WhatsApp or email you within 24 hours.</p>
+
+  </form>
+</div>
+
+<script>
+  /* ============================================================ */
+  /* ===== INSTANT PREVIEW PRELOAD (gallery + size preview) ===== */
+  /* ============================================================ */
+  (function() {
+    /* ---------- Helper: preload + decode a URL ---------- */
+    function preloadAndDecode(url) {
+      if (!url) return null;
+      const img = new Image();
+      img.src = url;
+      if (img.decode) {
+        img.decode().catch(() => {});
+      }
+      return img;
+    }
+
+    /* ---------- Helper: swap src with a decoded image ---------- */
+    function swapInstant(targetImg, url, cache) {
+      if (!url || !targetImg) return;
+      const cached = cache[url];
+      if (cached && cached.complete && cached.naturalWidth > 0) {
+        targetImg.src = url;
+      } else {
+        const img = new Image();
+        img.src = url;
+        const apply = () => { targetImg.src = url; };
+        if (img.decode) {
+          img.decode().then(apply).catch(apply);
+        } else {
+          img.onload = apply;
+          if (img.complete) apply();
+        }
+        cache[url] = img;
+      }
+    }
+
+    /* ============================================================ */
+    /* ===== 1) PRODUCT GALLERY ===== */
+    /* ============================================================ */
+    const galleryPreviewImg = document.getElementById('galleryPreviewImg');
+    const galleryThumbs = document.getElementById('galleryThumbs');
+
+    if (galleryPreviewImg && galleryThumbs) {
+      const thumbs = Array.from(galleryThumbs.querySelectorAll('.gallery-thumb'));
+
+      const galleryCache = {};
+      thumbs.forEach(t => {
+        const url = t.dataset.full;
+        if (url) galleryCache[url] = preloadAndDecode(url);
+      });
+
+      thumbs.forEach(thumb => {
+        thumb.addEventListener('click', function() {
+          const fullSrc = this.dataset.full;
+          if (!fullSrc) return;
+          swapInstant(galleryPreviewImg, fullSrc, galleryCache);
+          thumbs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    }
+
+    /* ============================================================ */
+    /* ===== 2) SIZE PREVIEW ===== */
+    /* ============================================================ */
+    const sizePreviewImg = document.getElementById('sizePreviewImg');
+
+    if (sizePreviewImg) {
+      const sizeCache = {};
+      document.querySelectorAll('.custom-option[data-size-image]').forEach(opt => {
+        const url = opt.dataset.sizeImage;
+        if (url) sizeCache[url] = preloadAndDecode(url);
+      });
+
+      window.__sizePreviewCache = sizeCache;
+      window.__swapSizePreview = function(url) {
+        swapInstant(sizePreviewImg, url, sizeCache);
+      };
+    }
+  })();
+
+  /* ============================================================ */
+  /* ===== STATE ===== */
+  /* ============================================================ */
+  let stepValues = {
+    frame_size_small: '',
+    frame_size_medium: '',
+    frame_size_large: '',
+    orientation: '',
+    quantity: ''
+  };
+
+  let activeSizeGroup = '';
+  let sizeConfirmed = false;
+
+  const SIZE_GROUPS = ['small', 'medium', 'large'];
+  const SIZE_KEYS = {
+    small: 'frame_size_small',
+    medium: 'frame_size_medium',
+    large: 'frame_size_large'
+  };
+
+  function getSelect(name) {
+    return document.querySelector(`.custom-select[data-name="${name}"]`);
+  }
+
+  function getCategoryEl(group) {
+    return document.querySelector(`.size-category[data-group="${group}"]`);
+  }
+
+  function setLocked(name, locked) {
+    const sel = getSelect(name);
+    if (!sel) return;
+    if (locked) {
+      sel.classList.add('locked');
+    } else {
+      sel.classList.remove('locked');
+    }
+  }
+
+  function setCategoryInactive(group, inactive) {
+    const cat = getCategoryEl(group);
+    if (!cat) return;
+    cat.classList.toggle('inactive', inactive);
+  }
+
+  /* ============================================================ */
+  /* ===== CONTACT SECTION LOCK ===== */
+  /* ============================================================ */
+  const contactSection = document.getElementById('contactSection');
+  const contactInputs = [
+    document.getElementById('contactName'),
+    document.getElementById('contactAddress'),
+    document.getElementById('contactPhone'),
+    document.getElementById('contactEmail')
+  ];
+
+  function updateContactLock() {
+    const unlocked = sizeConfirmed &&
+                     !!stepValues.orientation &&
+                     !!stepValues.quantity;
+
+    if (unlocked) {
+      contactSection.classList.remove('locked');
+      contactInputs.forEach(inp => { if (inp) inp.disabled = false; });
+    } else {
+      contactSection.classList.add('locked');
+      contactInputs.forEach(inp => { if (inp) inp.disabled = true; });
+    }
+  }
+
+  /* ============================================================ */
+  /* ===== CORE LOGIC ===== */
+  /* ============================================================ */
+
+  function resetCategory(group) {
+    stepValues[SIZE_KEYS[group]] = '';
+    setCategoryInactive(group, false);
+    setLocked(SIZE_KEYS[group], false);
+
+    const sel = getSelect(SIZE_KEYS[group]);
+    if (sel) {
+      const valueSpan = sel.querySelector('.custom-select-trigger .value, .custom-select-trigger .placeholder');
+      if (valueSpan) {
+        valueSpan.textContent = 'Select';
+        valueSpan.classList.remove('value');
+        valueSpan.classList.add('placeholder');
+      }
+      sel.querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+      const hidden = sel.querySelector('input[type="hidden"]');
+      if (hidden) hidden.value = '';
+    }
+  }
+
+  function clearOtherCategories(keepGroup) {
+    SIZE_GROUPS.forEach(g => {
+      if (g !== keepGroup) resetCategory(g);
+    });
+  }
+
+  function activateGroup(group) {
+    activeSizeGroup = group;
+    sizeConfirmed = false;
+
+    SIZE_GROUPS.forEach(g => {
+      setCategoryInactive(g, g !== group);
+      setLocked(SIZE_KEYS[g], false);
+    });
+
+    updateConfirmButtonUI();
+    updateStepLocks();
+  }
+
+  function resetSizeSelection() {
+    activeSizeGroup = '';
+    sizeConfirmed = false;
+
+    SIZE_GROUPS.forEach(g => resetCategory(g));
+
+    clearSizePreview();
+    updateConfirmButtonUI();
+    updateStepLocks();
+  }
+
+  function hasAnySizeSelection() {
+    return !!(stepValues.frame_size_small || stepValues.frame_size_medium || stepValues.frame_size_large);
+  }
+
+  const confirmBtn = document.getElementById('sizeConfirmBtn');
+  const changeLink = document.getElementById('sizeChangeLink');
+
+  function updateConfirmButtonUI() {
+    if (sizeConfirmed) {
+      confirmBtn.classList.remove('visible');
+      confirmBtn.classList.add('confirmed');
+      confirmBtn.textContent = 'Size confirmed ✓';
+      confirmBtn.disabled = true;
+      changeLink.classList.add('visible');
+    } else if (hasAnySizeSelection()) {
+      confirmBtn.classList.add('visible');
+      confirmBtn.classList.remove('confirmed');
+      confirmBtn.textContent = 'Confirm size selection';
+      confirmBtn.disabled = false;
+      changeLink.classList.remove('visible');
+    } else {
+      confirmBtn.classList.remove('visible');
+      confirmBtn.classList.remove('confirmed');
+      confirmBtn.disabled = false;
+      changeLink.classList.remove('visible');
+    }
+  }
+
+  confirmBtn.addEventListener('click', function() {
+    if (!hasAnySizeSelection()) return;
+    if (sizeConfirmed) return;
+    sizeConfirmed = true;
+
+    SIZE_GROUPS.forEach(g => setLocked(SIZE_KEYS[g], true));
+
+    updateConfirmButtonUI();
+    updateStepLocks();
+  });
+
+  changeLink.addEventListener('click', function() {
+    resetSizeSelection();
+  });
+
+  function updateStepLocks() {
+    setLocked('orientation', !sizeConfirmed);
+    setLocked('quantity', !(sizeConfirmed && stepValues.orientation));
+    updateContactLock();
+  }
+
+  /* ============================================================ */
+  /* ===== SIZE PREVIEW ===== */
+  /* ============================================================ */
+  const sizePreviewWrap = document.getElementById('sizePreviewWrap');
+  const sizePreviewImg = document.getElementById('sizePreviewImg');
+  const sizePreviewLabel = document.getElementById('sizePreviewLabel');
+
+  function showSizePreview(imageSrc, label) {
+    if (imageSrc) {
+      if (window.__swapSizePreview) {
+        window.__swapSizePreview(imageSrc);
+      } else {
+        sizePreviewImg.src = imageSrc;
+      }
+      sizePreviewImg.alt = label || 'Selected frame size';
+      sizePreviewLabel.textContent = label || '';
+      sizePreviewWrap.classList.add('has-image');
+    } else {
+      clearSizePreview();
+    }
+  }
+
+  function clearSizePreview() {
+    sizePreviewImg.src = '';
+    sizePreviewImg.alt = '';
+    sizePreviewLabel.textContent = '';
+    sizePreviewWrap.classList.remove('has-image');
+  }
+
+  /* ============================================================ */
+  /* ===== INITIAL STATE ===== */
+  /* ============================================================ */
+  SIZE_GROUPS.forEach(g => setLocked(SIZE_KEYS[g], false));
+  setLocked('orientation', true);
+  setLocked('quantity', true);
+  updateConfirmButtonUI();
+  updateContactLock();
+
+  /* ===== CUSTOM DROPDOWNS ===== */
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.custom-select')) {
+      document.querySelectorAll('.custom-select.open').forEach(el => el.classList.remove('open'));
+    }
+  });
+
+  document.querySelectorAll('.custom-select').forEach(select => {
+    const trigger = select.querySelector('.custom-select-trigger');
+    const placeholder = trigger.querySelector('.placeholder');
+    const options = select.querySelectorAll('.custom-option');
+    const selectName = select.dataset.name;
+    const group = select.dataset.group || null;
+
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = select.dataset.name || 'dropdown';
+    select.appendChild(hidden);
+
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (select.classList.contains('locked')) return;
+      if (sizeConfirmed && group) return;
+
+      if (group && group !== activeSizeGroup) {
+        clearOtherCategories(group);
+        activateGroup(group);
+        clearSizePreview();
+      }
+
+      const isOpen = select.classList.contains('open');
+      document.querySelectorAll('.custom-select.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) select.classList.add('open');
+    });
+
+    options.forEach(option => {
+      option.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (select.classList.contains('locked')) return;
+        if (sizeConfirmed && group) return;
+
+        const nameEl = option.querySelector('.option-name');
+        const value = nameEl ? nameEl.textContent.trim() : option.textContent.trim();
+
+        placeholder.textContent = value;
+        placeholder.classList.remove('placeholder');
+        placeholder.classList.add('value');
+
+        options.forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+
+        select.classList.remove('open');
+
+        hidden.value = value;
+
+        stepValues[selectName] = value;
+
+        if (group) {
+          const img = option.dataset.sizeImage || '';
+          const label = option.dataset.sizeLabel || value;
+          showSizePreview(img, label);
+          activateGroup(group);
+          return;
+        }
+
+        const directOther = select.parentElement.querySelector('.other-input');
+        if (directOther) {
+          if (option.dataset.other === 'true') {
+            directOther.classList.add('show');
+            directOther.querySelector('input').focus();
+          } else {
+            directOther.classList.remove('show');
+            directOther.querySelector('input').value = '';
+          }
+        }
+
+        updateStepLocks();
+      });
+    });
+  });
+
+  /* ===== NAME THE "OTHER" INPUTS ===== */
+  document.querySelectorAll('.other-input input').forEach((input, i) => {
+    if (!input.name) {
+      const parentSelect = input.closest('.field')?.querySelector('.custom-select');
+      const base = parentSelect?.dataset.name || `other_${i}`;
+      input.name = base + '_other';
+    }
+  });
+
+  /* ===== FORMSPREE AJAX SUBMIT ===== */
+  document.getElementById('revenueForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    if (!sizeConfirmed) {
+      alert('Please choose a size and click "Confirm size selection" before submitting.');
+      return;
+    }
+
+    const form = this;
+    const btn = form.querySelector('.submit-btn');
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        alert('Thanks! We got your details. We\'ll WhatsApp or email you within 24 hours.\n\nDon\'t forget: please send your reference images to the WhatsApp account that you are sending this form to.');
+        form.reset();
+
+        stepValues = {
+          frame_size_small: '',
+          frame_size_medium: '',
+          frame_size_large: '',
+          orientation: '',
+          quantity: ''
+        };
+        activeSizeGroup = '';
+        sizeConfirmed = false;
+        clearSizePreview();
+
+        form.querySelectorAll('.custom-select-trigger .value, .custom-select-trigger .placeholder').forEach(el => {
+          const sel = el.closest('.custom-select');
+          if (sel) {
+            const name = sel.dataset.name;
+            el.textContent = (name === 'frame_size_small' ||
+                              name === 'frame_size_medium' ||
+                              name === 'frame_size_large') ? 'Select'
+              : name === 'orientation' ? 'Select orientation'
+              : 'Select quantity';
+          } else {
+            el.textContent = 'Select';
+          }
+          el.classList.remove('value');
+          el.classList.add('placeholder');
+        });
+        form.querySelectorAll('.custom-option.selected').forEach(el => el.classList.remove('selected'));
+        form.querySelectorAll('.other-input').forEach(el => el.classList.remove('show'));
+        form.querySelectorAll('input[type="hidden"][name]').forEach(inp => {
+          if (inp.name !== '_subject' && inp.name !== '_template') inp.value = '';
+        });
+        const prodName = form.querySelector('input[name="product_name"]');
+        if (prodName) prodName.value = 'Traditional Frame';
+
+        SIZE_GROUPS.forEach(g => {
+          setCategoryInactive(g, false);
+          setLocked(SIZE_KEYS[g], false);
+        });
+        updateConfirmButtonUI();
+        updateStepLocks();
+
+        const firstThumb = document.querySelector('#galleryThumbs .gallery-thumb');
+        if (firstThumb && galleryPreviewImg) {
+          galleryPreviewImg.src = firstThumb.dataset.full;
+          document.querySelectorAll('#galleryThumbs .gallery-thumb').forEach(t => t.classList.remove('active'));
+          firstThumb.classList.add('active');
+        }
+
+      } else {
+        const data = await response.json();
+        const msg = data.errors ? data.errors.map(err => err.message).join(', ') : 'Something went wrong.';
+        alert('Oops! ' + msg);
+      }
+    } catch (err) {
+      alert('Network error. Please check your connection and try again.');
+    } finally {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
